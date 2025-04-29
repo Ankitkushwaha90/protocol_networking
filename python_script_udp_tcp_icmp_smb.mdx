@@ -1,0 +1,91 @@
+Here are example scripts for establishing and using terminal-based connections using different protocols like TCP, UDP, ICMP (Ping), and SMB in Python and Bash. These examples can help in cybersecurity testing, penetration testing, or custom communication tool development.
+
+### ✅ 1. TCP Client and Server (Python)
+Server (Python):
+```python
+# tcp_server.py
+import socket
+
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind(('0.0.0.0', 12345))
+server.listen(1)
+print("[*] Listening on port 12345")
+
+client_socket, addr = server.accept()
+print(f"[*] Accepted connection from {addr[0]}:{addr[1]}")
+data = client_socket.recv(1024)
+print(f"[*] Received: {data.decode()}")
+client_socket.send(b'ACK')
+client_socket.close()
+Client (Python):
+```
+```python
+# tcp_client.py
+import socket
+
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect(('127.0.0.1', 12345))
+client.send(b'Hello TCP Server!')
+response = client.recv(4096)
+print(f"[*] Response: {response.decode()}")
+```
+### ✅ 2. UDP Client and Server (Python)
+Server:
+```python
+# udp_server.py
+import socket
+
+server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+server.bind(('0.0.0.0', 12345))
+print("[*] UDP Server listening")
+
+data, addr = server.recvfrom(1024)
+print(f"[*] Received from {addr}: {data.decode()}")
+server.sendto(b'ACK', addr)
+```
+Client:
+```python
+# udp_client.py
+import socket
+
+client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+client.sendto(b'Hello UDP Server!', ('127.0.0.1', 12345))
+data, addr = client.recvfrom(4096)
+print(f"[*] Received from server: {data.decode()}")
+```
+### ✅ 3. ICMP (Ping) Using Scapy (Python)
+Requires sudo and scapy library
+
+```python
+# icmp_ping.py
+from scapy.all import *
+
+packet = IP(dst="8.8.8.8")/ICMP()
+reply = sr1(packet, timeout=2)
+if reply:
+    print(f"[+] Host {reply.src} is up.")
+else:
+    print("[-] No response")
+```
+### ✅ 4. SMB Connection Using smbclient (Linux Terminal/Bash)
+```bash
+smbclient //192.168.1.10/shared -U username%password
+```
+Or to list shares programmatically (Linux):
+
+```bash
+smbclient -L //192.168.1.10 -U username%password
+```
+### ✅ 5. ICMP Ping (Linux/Bash)
+```bash
+ping -c 4 8.8.8.8
+```
+Would you like examples for RAW sockets, TLS, or integrating this with a terminal-based UI (like curses or CLI apps)?
+
+
+
+
+
+
+
+You said:
