@@ -23,15 +23,15 @@ sudo apt install postfix
 ```
 During installation:
 
-- 1. Choose "Internet Site"
+1. - Choose "Internet Site"
 
 2. - Enter your system's hostname
 
 ### Step 2: Install Dovecot (IMAP & POP3)
 ```bash
 sudo apt install dovecot-imapd dovecot-pop3d
-This installs Dovecot which handles both IMAP and POP3 protocols.
 ```
+This installs Dovecot which handles both IMAP and POP3 protocols.
 
 ### Step 3: Test with Telnet or Netcat
 Test SMTP
@@ -51,22 +51,25 @@ Subject: Test
 This is a test email.
 .
 QUIT
+```
 Test IMAP
-bash
+```bash
 telnet localhost 143
+```
 Bonus: Send a Test Email Using mail Command
-bash
+```bash
 sudo apt install mailutils
 echo "Hello this is a test email." | mail -s "Test Email" you@example.com
-Presentation Ideas
-Diagram of SMTP/IMAP/POP3 flow
+```
+### Presentation Ideas
+- Diagram of SMTP/IMAP/POP3 flow
 
-Linux terminal demo of postfix and dovecot
+- Linux terminal demo of postfix and dovecot
 
-Use Wireshark to show email traffic (SMTP or IMAP)
+- Use Wireshark to show email traffic (SMTP or IMAP)
 
-Show testing via Telnet or Netcat
+- Show testing via Telnet or Netcat
 
-Highlight email spoofing risks via raw SMTP input
+- Highlight email spoofing risks via raw SMTP input
 
 Would you like a diagram of email protocol flow or a step-by-step script for your presentation?
