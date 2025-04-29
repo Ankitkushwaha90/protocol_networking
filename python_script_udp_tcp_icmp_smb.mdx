@@ -17,8 +17,8 @@ data = client_socket.recv(1024)
 print(f"[*] Received: {data.decode()}")
 client_socket.send(b'ACK')
 client_socket.close()
-Client (Python):
 ```
+Client (Python):
 ```python
 # tcp_client.py
 import socket
