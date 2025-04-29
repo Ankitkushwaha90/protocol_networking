@@ -1,0 +1,72 @@
+# Email Protocols for Cybersecurity and Networking
+
+## Key Email Protocols to Learn
+
+| Protocol | Port (Default) | Purpose |
+|----------|----------------|---------|
+| **SMTP** (Simple Mail Transfer Protocol) | 25, 587, 465 | Used to send email from client to server (and between servers) |
+| **IMAP** (Internet Message Access Protocol) | 143 (unencrypted), 993 (encrypted) | Used to read email while keeping it on the server |
+| **POP3** (Post Office Protocol v3) | 110 (unencrypted), 995 (encrypted) | Used to download email from server to local and then delete from server |
+
+<Callout type="info" emoji="ℹ️">
+  - Most important for sending: **SMTP**
+  - Most important for receiving (modern): **IMAP**
+</Callout>
+
+## Practical Setup on Linux
+
+### Step 1: Install a Lightweight Mail Server (Postfix for SMTP)
+
+```bash
+sudo apt update
+sudo apt install postfix
+```
+During installation:
+
+- 1. Choose "Internet Site"
+
+2. - Enter your system's hostname
+
+### Step 2: Install Dovecot (IMAP & POP3)
+```bash
+sudo apt install dovecot-imapd dovecot-pop3d
+This installs Dovecot which handles both IMAP and POP3 protocols.
+```
+
+### Step 3: Test with Telnet or Netcat
+Test SMTP
+```bash
+telnet localhost 25
+# Or using netcat:
+nc localhost 25
+```
+SMTP Commands:
+
+```ruby
+HELO yourdomain.com
+MAIL FROM:<you@yourdomain.com>
+RCPT TO:<someone@yourdomain.com>
+DATA
+Subject: Test
+This is a test email.
+.
+QUIT
+Test IMAP
+bash
+telnet localhost 143
+Bonus: Send a Test Email Using mail Command
+bash
+sudo apt install mailutils
+echo "Hello this is a test email." | mail -s "Test Email" you@example.com
+Presentation Ideas
+Diagram of SMTP/IMAP/POP3 flow
+
+Linux terminal demo of postfix and dovecot
+
+Use Wireshark to show email traffic (SMTP or IMAP)
+
+Show testing via Telnet or Netcat
+
+Highlight email spoofing risks via raw SMTP input
+
+Would you like a diagram of email protocol flow or a step-by-step script for your presentation?
