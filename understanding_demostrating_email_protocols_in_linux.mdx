@@ -1,0 +1,119 @@
+# Understanding and Demonstrating Email Protocols in Linux: SMTP, IMAP, and POP3
+
+## Slide 1: Title Slide
+**Title:** Electronic Mail Protocols: SMTP, IMAP, POP3  
+**Presenter:** [Your Name]  
+**Date / Institution:** [Insert Date / Institution]
+
+---
+
+## Slide 2: What is Email Communication?
+**Visual:** Diagram - Email client ↔ server ↔ recipient
+
+- Email is exchanged using standardized protocols.
+- Each protocol serves a specific role in sending or receiving messages.
+
+---
+
+## Slide 3: Key Email Protocols
+
+| Protocol | Purpose           | Port | Encrypted Port |
+|----------|-------------------|------|----------------|
+| SMTP     | Send mail         | 25   | 465 / 587      |
+| IMAP     | Read mail remotely| 143  | 993            |
+| POP3     | Download mail     | 110  | 995            |
+
+**Include:** Protocol flow diagram showing interaction between client, server, and protocol roles.
+
+---
+
+## Slide 4: Protocol Roles Explained
+
+- **SMTP (Simple Mail Transfer Protocol):** Sends messages between servers.
+- **IMAP (Internet Message Access Protocol):** Allows remote reading and management of email without downloading.
+- **POP3 (Post Office Protocol):** Downloads and typically deletes mail from server.
+
+---
+
+## Slide 5: Why These Protocols Matter?
+
+- Core of all email systems (Gmail, Outlook, enterprise mail).
+- Critical for **cybersecurity**: identifying spoofing, filtering spam.
+- Used in **forensics** and **email monitoring**.
+
+---
+
+## Slide 6: Practical Setup on Linux
+
+**Install SMTP Server (Postfix):**
+```bash
+sudo apt install postfix
+```
+
+**Install IMAP & POP3 Server (Dovecot):**
+```bash
+sudo apt install dovecot-imapd dovecot-pop3d
+```
+
+**Visual:** Include screenshot or video of installation steps.
+
+---
+
+## Slide 7: Live Demo or Video
+
+**Using Telnet to simulate SMTP session:**
+```bash
+telnet localhost 25
+```
+**Session Example:**
+```
+HELO domain.com
+MAIL FROM:<you@example.com>
+RCPT TO:<user@example.com>
+DATA
+Subject: Hello
+This is test.
+.
+QUIT
+```
+
+---
+
+## Slide 8: Email Testing Tools
+
+- Command-line: `telnet`, `nc`, `mail`, `sendmail`
+- Advanced: Wireshark for packet capture
+
+**Optional Demo:** Sniff SMTP packets to show protocol in action
+
+---
+
+## Slide 9: Real-World Applications
+
+- Email spoofing & detection
+- Phishing analysis techniques
+- Monitoring outbound SMTP to prevent spam
+- Reading and analyzing server logs
+
+---
+
+## Slide 10: Summary & Conclusion
+
+- SMTP, IMAP, and POP3 are email infrastructure essentials.
+- Linux tools allow full simulation of email flow.
+- Skills applicable in cybersecurity, sysadmin, and dev fields.
+
+---
+
+## Slide 11: Q&A
+
+- Open the floor for any questions.
+
+---
+
+## Files to Prepare for Presentation:
+
+- Terminal screenshots or demo script
+- Email protocol flow diagram
+- Optional: Wireshark capture files for SMTP session
+
