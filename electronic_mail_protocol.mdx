@@ -1,0 +1,182 @@
+# ✉️ 1. Latest and Main Electronic Mail Protocols (2025)
+
+## 📬 Protocol Overview
+
+| Protocol | Purpose                                            | Port (Default) | Secure Version                  |
+|----------|----------------------------------------------------|----------------|----------------------------------|
+| SMTP     | Sending emails                                     | 25             | 465 (SMTPS) / 587 (STARTTLS)     |
+| POP3     | Downloading emails (delete after download)         | 110            | 995 (POP3S)                      |
+| IMAP     | Managing and reading emails directly on server     | 143            | 993 (IMAPS)                      |
+| MSA      | Submitting outgoing mail from client to server     | 587            | 587 (STARTTLS)                  |
+| MIME     | Sending attachments (extends SMTP)                 | N/A            | Integrated in SMTP messages     |
+| DMARC, DKIM, SPF | Email authenticity, anti-spoofing         | N/A            | Used in headers (not TCP ports) |
+
+---
+
+## ✨ 2. Scripts and Example Code for Each Protocol
+
+### 📨 SMTP Client (Sending Mail)
+Send email using **SMTP with STARTTLS** encryption (modern method).
+
+```python
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+# SMTP server settings
+smtp_server = "smtp.gmail.com"
+smtp_port = 587  # STARTTLS
+sender_email = "your_email@gmail.com"
+receiver_email = "target_email@example.com"
+password = "your_password"
+
+# Compose the email
+message = MIMEMultipart()
+message["From"] = sender_email
+message["To"] = receiver_email
+message["Subject"] = "Test Email from Python Script"
+body = "Hello, this is a test email sent using SMTP protocol."
+
+message.attach(MIMEText(body, "plain"))
+
+# Send the email
+try:
+    server = smtplib.SMTP(smtp_server, smtp_port)
+    server.starttls()  # Secure the connection
+    server.login(sender_email, password)
+    server.sendmail(sender_email, receiver_email, message.as_string())
+    print("✅ Email sent successfully!")
+except Exception as e:
+    print(f"❌ Error sending email: {e}")
+finally:
+    server.quit()
+```
+### 📨 POP3 Client (Download and Read Mails)
+Using POP3S (port 995, SSL secure).
+
+```python
+import poplib
+from email.parser import BytesParser
+
+# POP3 server settings
+pop3_server = "pop.gmail.com"
+username = "your_email@gmail.com"
+password = "your_password"
+
+try:
+    server = poplib.POP3_SSL(pop3_server)
+    server.user(username)
+    server.pass_(password)
+
+    # Get number of messages
+    num_messages = len(server.list()[1])
+    print(f"📬 Total messages: {num_messages}")
+
+    # Retrieve the latest message
+    response, lines, octets = server.retr(num_messages)
+    msg_content = b"\n".join(lines)
+    msg = BytesParser().parsebytes(msg_content)
+
+    print("📨 Subject:", msg['subject'])
+except Exception as e:
+    print(f"❌ Error accessing mailbox: {e}")
+finally:
+    server.quit()
+```
+### 📨 IMAP Client (Manage Mails on Server)
+Access mailbox using IMAPS (port 993).
+
+```python
+import imaplib
+import email
+
+# IMAP server settings
+imap_server = "imap.gmail.com"
+email_user = "your_email@gmail.com"
+email_pass = "your_password"
+
+try:
+    # Connect to the server
+    mail = imaplib.IMAP4_SSL(imap_server)
+    mail.login(email_user, email_pass)
+
+    # Select mailbox (INBOX)
+    mail.select("inbox")
+
+    # Search for emails
+    status, messages = mail.search(None, "ALL")
+    mail_ids = messages[0].split()
+
+    print(f"📩 Total emails: {len(mail_ids)}")
+
+    # Fetch the latest email
+    latest_email_id = mail_ids[-1]
+    status, msg_data = mail.fetch(latest_email_id, "(RFC822)")
+
+    for response_part in msg_data:
+        if isinstance(response_part, tuple):
+            msg = email.message_from_bytes(response_part[1])
+            print("📨 Subject:", msg["subject"])
+except Exception as e:
+    print(f"❌ Error accessing IMAP server: {e}")
+finally:
+    mail.logout()
+```
+### 🔐 Bonus: Simple SPF, DKIM, DMARC Check
+Using dns.resolver to check DNS records manually (for authentication protocols):
+
+```python
+import dns.resolver
+
+domain = "example.com"
+
+def check_spf(domain):
+    try:
+        answers = dns.resolver.resolve(domain, 'TXT')
+        for rdata in answers:
+            if 'v=spf1' in str(rdata):
+                print(f"✅ SPF record found: {rdata}")
+    except Exception as e:
+        print(f"❌ No SPF record found: {e}")
+
+def check_dmarc(domain):
+    try:
+        answers = dns.resolver.resolve(f"_dmarc.{domain}", 'TXT')
+        for rdata in answers:
+            if 'v=DMARC1' in str(rdata):
+                print(f"✅ DMARC record found: {rdata}")
+    except Exception as e:
+        print(f"❌ No DMARC record found: {e}")
+
+check_spf(domain)
+check_dmarc(domain)
+```
+### ⚙️ Install required dependency:
+
+```bash
+pip install dnspython
+```
+🧠 Conclusion
+✅ SMTP — Send Emails (with STARTTLS or SSL)
+✅ POP3 — Download Emails (deletes from server usually)
+✅ IMAP — Manage/Read Emails without deleting (recommended for multi-device access)
+✅ SPF, DKIM, DMARC — Verify authenticity of mail servers (anti-phishing)
+
+### 🛠 Professional Tips
+Use IMAP for mobile and desktop email apps for synchronization across devices.
+
+Use SMTP over STARTTLS for sending (not plain SMTP, always use encrypted).
+
+Configure SPF, DKIM, DMARC properly for your domain if you send bulk emails (to prevent spam marking).
+
+### 🚀 Want More?
+Would you also like to see:
+
+✅ How to build a full Email Client (GUI in Python)?
+
+✅ How to send attachments (images, PDFs)?
+
+✅ How to automatically read incoming mail every 5 minutes?
+
+Let me know — I can build a full working script! 🎯
+
