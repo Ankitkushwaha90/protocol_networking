@@ -117,3 +117,88 @@ QUIT
 - Email protocol flow diagram
 - Optional: Wireshark capture files for SMTP session
 
+---
+
+## Likely Questions & Model Answers
+
+### 🎯 Basic Questions
+
+**Q1. What is the main purpose of SMTP?**  
+SMTP sends emails from a client to a server or between servers.
+
+**Q2. What is the difference between IMAP and POP3?**  
+IMAP keeps messages on the server and syncs across devices. POP3 downloads and deletes emails from the server.
+
+**Q3. Why do we need different ports for encrypted and unencrypted email protocols?**  
+Separate ports help enforce encryption and distinguish secure vs insecure connections.
+
+**Q4. What happens if SMTP fails? Will the email be delivered?**  
+No. If SMTP fails, the message won’t be sent. The server may retry, then bounce it back.
+
+**Q5. Can IMAP work offline? How?**  
+Yes. Email clients cache messages locally, allowing offline access and syncing when online.
+
+---
+
+### 🎯 Technical / Practical Questions
+
+**Q6. Which command is used to send an email from Linux terminal?**  
+`mail`, `sendmail`, or `mutt`. Example:
+```bash
+echo "Body" | mail -s "Subject" user@example.com
+```
+
+**Q7. How can you test an SMTP server without a mail client?**  
+Use `telnet` or `nc` to manually perform an SMTP session.
+
+**Q8. What is the role of Postfix in your setup?**  
+Postfix is the MTA that handles sending and receiving messages using SMTP.
+
+**Q9. How does Dovecot help in email handling?**  
+Dovecot provides IMAP and POP3 services, allowing users to retrieve email securely.
+
+**Q10. Which log files are important when troubleshooting email issues on Linux?**  
+`/var/log/mail.log` and `/var/log/mail.err`
+
+---
+
+### 🎯 Cybersecurity Questions
+
+**Q11. How can SMTP be exploited for spamming?**  
+If misconfigured, an SMTP server can act as an open relay, sending spam anywhere.
+
+**Q12. What is email spoofing?**  
+Faking the sender’s address to deceive the recipient.
+
+**Q13. How can you secure SMTP communication?**  
+Use TLS/SSL, enable authentication, and configure SPF, DKIM, DMARC.
+
+**Q14. What is STARTTLS? Why is it important?**  
+STARTTLS upgrades an existing insecure connection to a secure one.
+
+**Q15. How can you detect phishing emails at protocol level?**  
+Analyze headers and origins, and check for mismatched domain records (SPF/DKIM).
+
+---
+
+### 🎯 Advanced Questions
+
+**Q16. What is the difference between SMTPS (465) and SMTP + STARTTLS (587)?**  
+SMTPS uses implicit SSL from the start; STARTTLS starts insecure, then upgrades.
+
+**Q17. Why is IMAP preferred over POP3 in modern email clients?**  
+It syncs across multiple devices and doesn’t delete mail by default.
+
+**Q18. Explain SMTP authentication mechanisms (PLAIN, LOGIN, CRAM-MD5).**  
+They secure logins by encoding or hashing credentials during SMTP authentication.
+
+**Q19. Can you configure Postfix to only allow TLS connections?**  
+Yes, by enforcing `smtpd_tls_security_level = encrypt` in the config.
+
+**Q20. How to prevent Postfix from becoming an open relay?**  
+Restrict `smtpd_recipient_restrictions` to only allow known networks or authenticated users.
+
+---
+
+**🧠 Tip:** Print this section or keep it open during Q&A.
+
