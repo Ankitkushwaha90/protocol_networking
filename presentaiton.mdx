@@ -1,0 +1,186 @@
+---
+title: Electronic Mail and FTP
+subtitle: Understanding the Backbone of Email and File Transfer Communication
+author: Ankit Kushwaha
+date: 2025-04-30
+---
+
+# Slide 1: Introduction
+
+### What are Internet Protocols?
+
+Standardized rules that allow computers to communicate over networks.
+
+### Focus of This Presentation:
+
+- **Electronic Mail Protocols**: SMTP, POP3, IMAP, MIME  
+- **FTP**: File Transfer Protocol
+
+---
+
+# Slide 2: What is Electronic Mail?
+
+A method of exchanging digital messages across the Internet.
+
+**Involves:**
+
+- **Sending messages** (SMTP)  
+- **Receiving messages** (POP3, IMAP)  
+- **Formatting attachments** (MIME)
+
+---
+
+# Slide 3: Components of Email System
+
+- **Mail User Agent (MUA)** – Email client (e.g., Outlook, Thunderbird)  
+- **Mail Transfer Agent (MTA)** – Routes email (e.g., Sendmail)  
+- **Mail Delivery Agent (MDA)** – Delivers mail to inbox  
+- **Mail Server** – Stores and processes email data
+
+---
+
+# Slide 4: SMTP – Simple Mail Transfer Protocol
+
+**Used for:** Sending emails from client to server or between servers.
+
+**Ports:** 25 (default), 587 (secure)
+
+**Operation:**
+
+```bash
+Sender MUA → SMTP Server → Recipient MTA
+```
+---
+
+# Slide 5: POP3 – Post Office Protocol v3
+
+**Used for:** Downloading emails to local device and deleting from server.
+
+**Ports:** 110 (default), 995 (secure)
+
+**Features:**
+
+- Good for offline access  
+- Simple but not suitable for multiple devices
+
+---
+
+# Slide 6: IMAP – Internet Message Access Protocol
+
+**Used for:** Synchronizing and managing email directly on the server.
+
+**Ports:** 143 (default), 993 (secure)
+
+**Features:**
+
+- Access from multiple devices  
+- Supports folders and labels  
+- Server-based email management
+
+---
+
+# Slide 7: MIME – Multipurpose Internet Mail Extensions
+
+**Function:** Extends SMTP to support attachments, multimedia, and non-ASCII text.
+
+**Importance:**
+
+- Enables real-world email functionality (e.g., photos, documents, audio)  
+- Works with SMTP, POP3, IMAP
+
+---
+
+# Slide 8: Email Protocol Workflow
+
+**Example Workflow:**
+
+1. Sender writes email in MUA  
+2. Sent via SMTP to server  
+3. Server sends to recipient’s server  
+4. Recipient uses POP3 or IMAP to read
+
+> _Include diagram if needed_
+
+---
+
+# Slide 9: What is FTP?
+
+**FTP (File Transfer Protocol):**  
+A standard protocol for transferring files over a TCP/IP network.
+
+**Used for:**
+
+- Uploading/downloading files  
+- Website management  
+- Remote file access
+
+---
+
+# Slide 10: How FTP Works
+
+**Client-Server Architecture**
+
+- FTP Client (e.g., FileZilla) connects to FTP Server
+
+**Ports:**
+
+- **Port 21** – Command  
+- **Port 20** – Data
+
+**Modes:**
+
+- Active Mode  
+- Passive Mode (used in firewalls/NAT)
+
+---
+
+# Slide 11: FTP Commands
+
+**Common FTP Commands:**
+
+- `USER` – Send username  
+- `PASS` – Send password  
+- `GET` – Download file  
+- `PUT` – Upload file  
+- `LIST` – List directory  
+- `QUIT` – Close session
+
+---
+
+# Slide 12: FTP Security Considerations
+
+- FTP is **not secure by default**  
+- Data is sent in **plaintext**
+
+**Secure Alternatives:**
+
+- **FTPS** – FTP over SSL/TLS  
+- **SFTP** – FTP over SSH
+
+---
+
+# Slide 13: Comparison Table
+
+| Protocol | Purpose       | Ports   | Security   | Example Use          |
+|----------|---------------|---------|------------|----------------------|
+| SMTP     | Send email    | 25/587  | TLS/SSL    | Sending mail         |
+| POP3     | Receive email | 110/995 | SSL        | Download & delete    |
+| IMAP     | Receive email | 143/993 | SSL        | Sync mail            |
+| FTP      | Transfer files| 20/21   | Plain/SSL  | Upload/download files|
+
+---
+
+# Slide 14: Real-World Applications
+
+- **Email Protocols:** Used in Gmail, Outlook, Yahoo  
+- **FTP:** Website hosting, software distribution, cloud servers
+
+---
+
+# Slide 15: Conclusion
+
+- Email and FTP are core protocols in internet communication.  
+- SMTP, POP3, and IMAP manage email sending/receiving.  
+- FTP enables efficient file transfers across networks.  
+- **Security upgrades** like SFTP and encrypted email enhance privacy.
+
